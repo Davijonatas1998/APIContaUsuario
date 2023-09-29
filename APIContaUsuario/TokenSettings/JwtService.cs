@@ -6,11 +6,13 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using Xunit;
 
 namespace APIContaUsuario.TokenSettings
 {
     public static class JwtService
     {
+        [Fact]
         public static string GenerateJwtToken(ApplicationUser user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -39,6 +41,7 @@ namespace APIContaUsuario.TokenSettings
             return tokenHandler.WriteToken(token);
         }
 
+        [Fact]
         public static string ClaimsJwtToken(IEnumerable<Claim> claims)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -54,6 +57,7 @@ namespace APIContaUsuario.TokenSettings
             return tokenHandler.WriteToken(token);
         }
 
+        [Fact]
         public static string GenerateRefreshToken()
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -65,6 +69,7 @@ namespace APIContaUsuario.TokenSettings
             return refreshToken;
         }
 
+        [Fact]
         public static ClaimsPrincipal GetClaimsPrincipalExpiredToken(string token)
         {
             var TokenValidationParameters = new TokenValidationParameters
@@ -87,6 +92,7 @@ namespace APIContaUsuario.TokenSettings
             return Principal;
         }
 
+        [Fact]
         public static string PasswordHash(string Password)
         {
             using (SHA256 sha256 = SHA256.Create())
